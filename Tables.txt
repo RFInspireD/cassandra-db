@@ -1,0 +1,39 @@
+
+
+CREATE TABLE sensor (
+sensor_id uuid PRIMARY KEY,
+mac text,
+class text,
+alias text,
+description text);
+
+CREATE TABLE tag (
+tag_id text PRIMARY KEY,
+name text,
+description text);
+
+CREATE TABLE tag_buckets (
+tag_id text,
+bucket_ts timestamp,
+bucket_size int,
+PRIMARY KEY (tag_id, bucket_ts));
+
+
+CREATE TABLE tag_timeline (
+tag_id text,
+bucket_ts timestamp,
+event_time timestamp,
+PRIMARY KEY ((tag_id, bucket_ts), event_time));
+
+CREATE TABLE read_buckets (
+sensor_id uuid,
+bucket_ts timestamp,
+bucket_size int,
+PRIMARY KEY (sensor_id, bucket_ts));
+
+CREATE TABLE read_timeline (
+sensor_id uuid,
+bucket_ts timestamp,
+event_time timestamp,
+read text,
+PRIMARY KEY((sensor_id, bucket_ts), event_time));
